@@ -26,6 +26,19 @@
   margin-bottom: 10rem;
 }
 
+.App-footer {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  background-color: #282c34;
+  align-items: center;
+  min-height: 10rem;
+  justify-content: center;
+  color: white;
+  width: 100%;
+  flex-direction: column;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -39,7 +52,7 @@
   }
 }
 
-.App-table-wrap {
+.App-content-wrap {
   width: 28%;
   margin: 0 auto;
 }

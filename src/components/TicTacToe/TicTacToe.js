@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Table from "../components/Table/Table";
-import { CROSS_SIGN, ZERO_SIGN } from "../constants/signs.constants";
+import Table from "../Table/Table";
+import { CROSS_SIGN, ZERO_SIGN } from "../../constants/signs.constants";
 
-export default function TicTacToeView() {
+export default function TicTacToe() {
   const tableSize = 3;
   const tableInitialValue = Array.from({ length: tableSize }, () =>
     new Array(tableSize).fill("")
