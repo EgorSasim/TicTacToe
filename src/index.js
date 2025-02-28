@@ -4,8 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router";
-import HomePage from "./components/pages/HomePage";
-import AboutPage from "./components/pages/AboutPage";
+import HomePage from "./components/pages/HomePage/HomePage";
+import AboutPage from "./components/pages/AboutPage/AboutPage";
 
 const root = document.getElementById("root");
 ReactDOM.createRoot(root).render(

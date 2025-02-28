@@ -4,7 +4,9 @@ export default function AboutPage() {
   return (
     <>
       <h1>This is about page!!!</h1>
-      <NavLink to="/">Go back to home</NavLink>
+      <NavLink className="App-link" to="/">
+        Go back to home
+      </NavLink>
     </>
   );
 }

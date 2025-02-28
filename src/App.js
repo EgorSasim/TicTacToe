@@ -11,7 +11,9 @@ function App() {
       </div>
       <footer className="App-footer">
         <span>This is footer</span>
-        <NavLink to="/about">Go to about page</NavLink>
+        <NavLink className="App-link" to="/about">
+          Go to about page
+        </NavLink>
       </footer>
     </>
   );
