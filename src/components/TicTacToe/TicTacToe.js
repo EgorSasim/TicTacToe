@@ -2,9 +2,9 @@ import { useState } from "react";
 import Table from "../Table/Table";
 import { CROSS_SIGN, ZERO_SIGN } from "../../constants/signs.constants";
 import WinnerModal from "../WinnerModal/WinnerModal";
-import { useOutletContext } from "react-router";
+import NamesModal from "../NamesModal/NamesModal";
 
-export default function TicTacToe() {
+export default function TicTacToe({ addStatics }) {
   const tableSize = 3;
   const tableInitialValue = Array.from({ length: tableSize }, () =>
     new Array(tableSize).fill("")
@@ -12,8 +12,15 @@ export default function TicTacToe() {
   const [currentSign, setCurrentSign] = useState(CROSS_SIGN);
   const [table, setTable] = useState(tableInitialValue);
   const [winnerModalOpen, setWinnerModalOpen] = useState(false);
-  const [names] = useOutletContext();
+  const [names, setNames] = useState({
+    firstPlayerName: "",
+    secondPlayerName: "",
+  });
   const [winnerName, setWinnerName] = useState("");
+
+  function handleNamesChange(firstPlayerName, secondPlayerName) {
+    setNames({ firstPlayerName, secondPlayerName });
+  }
 
   function handleTableClick(row, col) {
     if (table[row][col] !== "") {
@@ -21,12 +28,7 @@ export default function TicTacToe() {
     }
     table[row][col] = currentSign;
     if (checkWinState(table)) {
-      setWinnerName(
-        currentSign === CROSS_SIGN
-          ? Object.values(names)[0]
-          : Object.values(names)[1]
-      );
-      setWinnerModalOpen(true);
+      onWinState();
     }
     changeSign();
     setTable([...table]);
@@ -41,6 +43,37 @@ export default function TicTacToe() {
     setWinnerModalOpen(false);
     reset();
   }
+
+  const onWinState = () => {
+    setWinnerName(
+      currentSign === CROSS_SIGN
+        ? Object.values(names)[0]
+        : Object.values(names)[1]
+    );
+
+    if (Object.values(names).every((name) => name)) {
+      const newRecord = {
+        firstPlayer: {
+          name: Object.values(names)[0],
+          winner: currentSign === CROSS_SIGN,
+        },
+        secondPlayer: {
+          name: Object.values(names)[1],
+          winner: currentSign === ZERO_SIGN,
+        },
+      };
+
+      fetch(process.env.REACT_APP_BACKEND_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newRecord),
+      }).then(() => addStatics());
+    }
+
+    setWinnerModalOpen(true);
+  };
 
   const changeSign = () => {
     setCurrentSign((prevSign) =>
@@ -90,12 +123,12 @@ export default function TicTacToe() {
   return (
     <>
       <Table tableClick={handleTableClick} table={table}></Table>
-      <button onClick={reset}>Reset</button>
       <WinnerModal
         open={winnerModalOpen}
         onClose={closeWinnerModal}
         winner={winnerName}
       ></WinnerModal>
+      <NamesModal setNames={handleNamesChange}></NamesModal>
     </>
   );
 }

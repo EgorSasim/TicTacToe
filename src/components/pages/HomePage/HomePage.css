@@ -1,0 +1,12 @@
+.app-home-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 10%;
+    align-items: center;
+}
+
+.app-home-page-tic-tac-toe {
+    width: 28%;
+    display: block;
+}

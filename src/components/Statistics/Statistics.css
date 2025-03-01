@@ -1,0 +1,27 @@
+.app-statistics {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-statistics-header {
+    text-align: center;
+}
+
+.app-statistics-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-statistics-item {
+    display: grid;
+    grid-template-columns: 0.1fr repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.app-statistics-item__left-section {
+    text-align: right;
+}
+
+.app-statistics-item__right-section {
+    text-align: left;
+}

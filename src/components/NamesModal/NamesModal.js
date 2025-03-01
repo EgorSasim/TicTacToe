@@ -34,7 +34,7 @@ export default function NamesModal({ setNames }) {
           },
         }}
       >
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Let's start!!!</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please, provide names of players
@@ -58,7 +58,7 @@ export default function NamesModal({ setNames }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">Submit</Button>
         </DialogActions>
       </Dialog>
     </>
