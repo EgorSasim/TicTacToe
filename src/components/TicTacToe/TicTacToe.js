@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Table from "../Table/Table";
 import { CROSS_SIGN, ZERO_SIGN } from "../../constants/signs.constants";
+import WinnerModal from "../WinnerModal/WinnerModal";
+import { useOutletContext } from "react-router";
 
 export default function TicTacToe() {
   const tableSize = 3;
@@ -9,6 +11,9 @@ export default function TicTacToe() {
   );
   const [currentSign, setCurrentSign] = useState(CROSS_SIGN);
   const [table, setTable] = useState(tableInitialValue);
+  const [winnerModalOpen, setWinnerModalOpen] = useState(false);
+  const [names] = useOutletContext();
+  const [winnerName, setWinnerName] = useState("");
 
   function handleTableClick(row, col) {
     if (table[row][col] !== "") {
@@ -16,7 +21,12 @@ export default function TicTacToe() {
     }
     table[row][col] = currentSign;
     if (checkWinState(table)) {
-      console.log(currentSign, " WINS!!!");
+      setWinnerName(
+        currentSign === CROSS_SIGN
+          ? Object.values(names)[0]
+          : Object.values(names)[1]
+      );
+      setWinnerModalOpen(true);
     }
     changeSign();
     setTable([...table]);
@@ -25,6 +35,11 @@ export default function TicTacToe() {
   function reset() {
     setTable(tableInitialValue);
     setCurrentSign(CROSS_SIGN);
+  }
+
+  function closeWinnerModal() {
+    setWinnerModalOpen(false);
+    reset();
   }
 
   const changeSign = () => {
@@ -76,6 +91,11 @@ export default function TicTacToe() {
     <>
       <Table tableClick={handleTableClick} table={table}></Table>
       <button onClick={reset}>Reset</button>
+      <WinnerModal
+        open={winnerModalOpen}
+        onClose={closeWinnerModal}
+        winner={winnerName}
+      ></WinnerModal>
     </>
   );
 }
