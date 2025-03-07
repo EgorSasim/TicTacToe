@@ -1,3 +1,15 @@
 {
-	"players": []
+  "players": [
+    {
+      "id": "6f8e",
+      "firstPlayer": {
+        "name": "new one ",
+        "winner": true
+      },
+      "secondPlayer": {
+        "name": "old one",
+        "winner": false
+      }
+    }
+  ]
 }
